@@ -11,7 +11,7 @@ namespace BlogMVC.Controllers.Admin
         Create = 0,
         Update = 1,
     }
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     [Area("Admin")]
     public class CategoryController : Controller
     {

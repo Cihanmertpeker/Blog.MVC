@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BlogMVC.Controllers.Admin
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize]
     [Area("Admin")]
     public class BlogController : Controller
     {
