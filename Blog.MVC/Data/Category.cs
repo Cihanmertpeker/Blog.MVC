@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace Blog.MVC.Data
+namespace BlogMVC.Data
 {
     [Index(nameof(SeoUrl), IsUnique = true)]
-    public class Category 
+    public class Category
     {
-        
+
 
         [Key]
         public int Id { get; set; }
 
-        
+
         [MaxLength(250)]
         [Required]
         public string Definition { get; set; } = null!;
@@ -23,6 +23,6 @@ namespace Blog.MVC.Data
 
         public List<BlogCategory>? BlogCategories { get; set; }
 
-        
+
     }
 }

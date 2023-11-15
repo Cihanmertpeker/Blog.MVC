@@ -1,16 +1,17 @@
-﻿using Blog.MVC.Data;
+﻿using BlogMVC.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.AccessControl;
 
-namespace Blog.MVC.Controllers.Admin
+namespace BlogMVC.Controllers.Admin
 {
     public enum viewType
     {
         Create = 0,
         Update = 1,
     }
-
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class CategoryController : Controller
     {
@@ -22,7 +23,8 @@ namespace Blog.MVC.Controllers.Admin
 
         public IActionResult Index()
         {
-            var categories = this.context.Categories.AsNoTracking().ToList();
+            ViewBag.active = "Category";
+            var categories = context.Categories.AsNoTracking().ToList();
             return View(categories);
         }
 
@@ -30,10 +32,11 @@ namespace Blog.MVC.Controllers.Admin
         [HttpGet]
         public IActionResult CreateOrUpdate(int id, viewType type)
         {
+            ViewBag.active = "Category";
             ViewBag.Type = type;
             if (type == viewType.Update)
             {
-                var updatedCategory = this.context.Categories.AsNoTracking().SingleOrDefault(x => x.Id == id);
+                var updatedCategory = context.Categories.AsNoTracking().SingleOrDefault(x => x.Id == id);
                 return View(updatedCategory);
             }
             else
@@ -46,15 +49,16 @@ namespace Blog.MVC.Controllers.Admin
         [HttpPost]
         public IActionResult CreateOrUpdate(Category category)
         {
+            ViewBag.active = "Category";
             if (category.Id == 0)
             {
                 category.SeoUrl = ConvertSeoUrl(category.Definition);
-                this.context.Categories.Add(category);
-                this.context.SaveChanges();
+                context.Categories.Add(category);
+                context.SaveChanges();
             }
             else
             {
-                var updatedEntity = this.context.Categories.SingleOrDefault(x => x.Id == category.Id);
+                var updatedEntity = context.Categories.SingleOrDefault(x => x.Id == category.Id);
                 category.SeoUrl = category.Definition;
 
                 if (updatedEntity != null)
@@ -66,7 +70,7 @@ namespace Blog.MVC.Controllers.Admin
                     }
 
                 }
-                this.context.SaveChanges();
+                context.SaveChanges();
 
             }
             return RedirectToAction("Index");
@@ -74,13 +78,14 @@ namespace Blog.MVC.Controllers.Admin
 
         public IActionResult Remove(int id)
         {
+            ViewBag.active = "Category";
             //var blogCategories = this.context.BlogCategories.Where(x => x.CategoryId == id).ToList();
             //this.context.BlogCategories.RemoveRange(blogCategories);
             //this.context.SaveChanges();
-            var deletedCategory = this.context.Categories.SingleOrDefault(x => x.Id == id);
-            this.context.Categories.Remove(deletedCategory);
+            var deletedCategory = context.Categories.SingleOrDefault(x => x.Id == id);
+            context.Categories.Remove(deletedCategory);
 
-            this.context.SaveChanges();
+            context.SaveChanges();
 
             return RedirectToAction("Index");
         }

@@ -1,9 +1,9 @@
-﻿namespace Blog.MVC.Models
+﻿namespace BlogMVC.Models
 {
-    public class BlogSearchModel
+    public class BlogSearchModel : PageModel
     {
         public string? Title { get; set; }
         public DateTime CreatedDate { get; set; }
-        
+
     }
 }

@@ -1,7 +1,9 @@
-﻿@using Blog.MVC.Controllers.Admin
+﻿@using BlogMVC.Controllers.Admin
+
 @model List<Category>
 @{
     Layout = "_Layout";
+    
 }
 
 <div class="container mt-3">
@@ -26,7 +28,7 @@
                         <td>
                         <a asp-action="CreateOrUpdate"asp-controller="Category" asp-area="Admin" asp-route-id="@category.Id" asp-route-type="@viewType.Update">Update</a>
                             <a onclick="return confirm('Silmek istediğinize emin misiniz?')" asp-action="Remove" asp-controller="Category" asp-area="Admin" asp-route-id="@category.Id">Remove</a>
-                       
+                        
                         </td>
                     </tr>
                 }

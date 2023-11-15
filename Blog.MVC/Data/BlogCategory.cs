@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Blog.MVC.Data
+namespace BlogMVC.Data
 {
     public class BlogCategory
     {
@@ -13,7 +13,7 @@ namespace Blog.MVC.Data
         public int BlogId { get; set; }
         public Blog? Blog { get; set; }
 
-        
+
         [ForeignKey("Category")]
         [Required]
         public int CategoryId { get; set; }
